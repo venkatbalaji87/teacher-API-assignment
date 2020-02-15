@@ -20,6 +20,7 @@ teacherRouter
     });
     res.status(200).json({ teachers: requiredTeacher });
   })
+  //update
   .patch("/:id", (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, age, gender } = req.body;
@@ -37,6 +38,7 @@ teacherRouter
 
     res.send("ok");
   })
+  //delete operation
   .delete("/:id", (req, res) => {
     const { id } = req.params;
     let requiredTeacherIndex;
