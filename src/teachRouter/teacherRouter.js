@@ -4,7 +4,7 @@ const teachers = require("../teacherdetail");
 const teacherRouter = express.Router();
 
 teacherRouter
-  .post("/:id", (req, res) => {
+  .post("/", (req, res) => {
     if (req.body.id && req.body.firstName) {
       teachers.push(req.body);
       res.status(200).json({ message: "Teacher created successfully" });
@@ -27,7 +27,7 @@ teacherRouter
 
     let requiredTeacherIndex;
     const requiredStudent = teachers.find((teacher, teacherIndex) => {
-      if (parseInt(id) === student.id) {
+      if (parseInt(id) === teacher.id) {
         requiredTeacherIndex = teacherIndex;
         return true;
       } else return false;
