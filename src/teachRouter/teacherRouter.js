@@ -26,17 +26,34 @@ teacherRouter
     const { firstName, lastName, age, gender } = req.body;
 
     let requiredTeacherIndex;
-    const requiredStudent = teachers.find((teacher, teacherIndex) => {
+    const requiredTeacher = teachers.find((teacher, teacherIndex) => {
       if (parseInt(id) === teacher.id) {
         requiredTeacherIndex = teacherIndex;
         return true;
       } else return false;
     });
 
+    if (requiredTeacher) {
+      const {
+        firstName = requiredTeacher.firstName,
+        lastName = requiredTeacher.lastName,
+        age = requiredTeacher.age,
+        gender = requiredTeacher.gender
+      } = req.body;
+      teachers[requiredTeacherIndex] = {
+        id: requiredTeacher.id,
+        firstName,
+        lastName,
+        age,
+        gender
+      };
+      res.status(200).json({ message: "Teacher details updated" });
+    } else {
+      res.status(400).send("Bad Request");
+    }
+
     console.log(requiredStudent);
     console.log(requiredTeacherIndex);
-
-    res.send("ok");
   })
   //delete operation
   .delete("/:id", (req, res) => {
